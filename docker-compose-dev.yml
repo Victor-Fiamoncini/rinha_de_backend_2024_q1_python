@@ -1,0 +1,23 @@
+version: "3.5"
+
+services:
+  rinha_de_backend_postgres:
+    container_name: rinha_de_backend_postgres
+    image: postgres:15-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: superuser
+      POSTGRES_PASSWORD: superpassword
+      POSTGRES_DB: rinha_de_backend
+    networks:
+      - rinha_de_backend
+
+networks:
+  rinha_de_backend:
+    driver: bridge
+
+volumes:
+  rinha_de_backend_postgres_data:
