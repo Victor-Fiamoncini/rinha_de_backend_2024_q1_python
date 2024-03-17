@@ -2,8 +2,9 @@
 TITLE = "rinha_de_backend_2024_q1"
 EXTENSIONS = [
     "rinha_de_backend_2024_q1.extensions.database",
+    "rinha_de_backend_2024_q1.extensions.migrate",
     "rinha_de_backend_2024_q1.blueprints.router"
 ]
 
 [development]
-SQLALCHEMY_DATABASE_URI = "postgresql://superuser:superpassword@127.0.0.1:5432/rinha_de_backend?schema=public"
+SQLALCHEMY_DATABASE_URI = "postgresql://superuser:superpassword@127.0.0.1:5432/rinha_de_backend"
