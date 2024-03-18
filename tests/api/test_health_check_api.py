@@ -1,8 +1,7 @@
-import json
 from rinha_de_backend_2024_q1.app import create_app
 
 
-def test_must_create_a_transaction_():
+def test_must_get_a_successfull_response_from_health_check():
     app = create_app()
 
     response = app.test_client().get("/health")
