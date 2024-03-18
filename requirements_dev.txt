@@ -1,0 +1,6 @@
+black==24.3.0
+iniconfig==2.0.0
+packaging==24.0
+pluggy==1.4.0
+pip-autoremove==0.10.0
+pytest==8.1.1
