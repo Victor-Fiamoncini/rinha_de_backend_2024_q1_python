@@ -1,12 +1,12 @@
-from flask import Blueprint, Flask
+from flask import Blueprint, Flask, jsonify
 
 
 bp = Blueprint("router", __name__)
 
 
-@bp.route("/")
-def hello_world():
-    return "hello_world", 200
+@bp.route("/health")
+def health_check():
+    return "Server is alive!", 200
 
 
 def init_app(app: Flask):
