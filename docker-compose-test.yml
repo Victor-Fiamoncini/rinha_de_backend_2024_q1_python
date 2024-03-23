@@ -1,8 +1,8 @@
 version: "3.5"
 
 services:
-  rinha_de_backend_postgres_dev:
-    container_name: rinha_de_backend_postgres_dev
+  rinha_de_backend_postgres_test:
+    container_name: rinha_de_backend_postgres_test
     image: postgres:15-alpine
     ports:
       - 5432:5432
@@ -11,10 +11,10 @@ services:
       POSTGRES_PORT: 5432
       POSTGRES_USER: superuser
       POSTGRES_PASSWORD: superpassword
-      POSTGRES_DB: rinha_de_backend_dev
+      POSTGRES_DB: rinha_de_backend_test
     networks:
-      - rinha_de_backend_dev
+      - rinha_de_backend_test
 
 networks:
-  rinha_de_backend_dev:
+  rinha_de_backend_test:
     driver: bridge
