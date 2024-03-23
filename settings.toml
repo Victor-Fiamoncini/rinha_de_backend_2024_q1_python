@@ -8,4 +8,7 @@ EXTENSIONS = [
 ]
 
 [development]
-SQLALCHEMY_DATABASE_URI = "postgresql://superuser:superpassword@127.0.0.1:5432/rinha_de_backend"
+SQLALCHEMY_DATABASE_URI = "postgresql://superuser:superpassword@127.0.0.1:5432/rinha_de_backend_dev"
+
+[testing]
+SQLALCHEMY_DATABASE_URI = "postgresql://superuser:superpassword@127.0.0.1:5432/rinha_de_backend_test"
