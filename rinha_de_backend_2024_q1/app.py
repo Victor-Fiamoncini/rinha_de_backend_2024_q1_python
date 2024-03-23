@@ -3,15 +3,15 @@ from flask import Flask
 from rinha_de_backend_2024_q1.extensions import configuration
 
 
-def minimal_app() -> Flask:
+def create_minimal_app(**config) -> Flask:
     app = Flask(__name__)
-    configuration.init_app(app)
+    configuration.init_app(app, **config)
 
     return app
 
 
-def create_app() -> Flask:
-    app = minimal_app()
+def create_app(**config) -> Flask:
+    app = create_minimal_app(**config)
     configuration.load_extensions(app)
 
     return app

@@ -9,5 +9,5 @@ def load_extensions(app: Flask):
         mod.init_app(app)
 
 
-def init_app(app: Flask):
-    FlaskDynaconf(app, settings_files=["settings.toml"])
+def init_app(app: Flask, **config):
+    FlaskDynaconf(app, settings_files=["settings.toml"], **config)
