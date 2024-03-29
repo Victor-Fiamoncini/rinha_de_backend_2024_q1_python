@@ -9,13 +9,11 @@ RUN apt-get update \
 RUN useradd -ms /bin/bash python
 USER python
 
-# Installs virtualenv
-RUN python -m pip install virtualenv
-
 WORKDIR /home/python/app_dev
 COPY . .
 
-# Initializes virtualenv & installs dependencies
-RUN python -m virtualenv venv
+# Installs dependencies
 RUN pip install -r requirements.txt
 RUN pip install -r requirements_dev.txt
+
+CMD ./run_dev_server.sh

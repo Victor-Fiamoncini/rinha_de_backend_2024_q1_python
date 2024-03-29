@@ -10,10 +10,8 @@ services:
       - .:/home/python/app_dev
     networks:
       - rinha_de_backend
-    command: sh run_dev_server.sh
     depends_on:
       - postgres_dev
-      - postgres_test
 
   postgres_dev:
     container_name: postgres_dev
@@ -24,18 +22,6 @@ services:
       POSTGRES_USER: superuser
       POSTGRES_PASSWORD: superpassword
       POSTGRES_DB: rinha_de_backend_dev
-    networks:
-      - rinha_de_backend
-
-  postgres_test:
-    container_name: postgres_test
-    image: postgres:15-alpine
-    ports:
-      - 5433:5432
-    environment:
-      POSTGRES_USER: superuser
-      POSTGRES_PASSWORD: superpassword
-      POSTGRES_DB: rinha_de_backend_test
     networks:
       - rinha_de_backend
 
