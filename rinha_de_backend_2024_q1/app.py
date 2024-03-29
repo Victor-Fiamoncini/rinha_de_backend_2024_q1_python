@@ -1,17 +1,22 @@
+from config import config
 from flask import Flask
+from rinha_de_backend_2024_q1.blueprints import cli, router
+from rinha_de_backend_2024_q1.extensions import database, migrate
 
-from rinha_de_backend_2024_q1.extensions import configuration
 
-
-def create_minimal_app(**config) -> Flask:
+def create_minimal_app(config_name: str) -> Flask:
     app = Flask(__name__)
-    configuration.init_app(app, **config)
+    app.config.from_object(config[config_name])
 
     return app
 
 
-def create_app(**config) -> Flask:
-    app = create_minimal_app(**config)
-    configuration.load_extensions(app)
+def create_app(config_name: str) -> Flask:
+    app = create_minimal_app(config_name)
+
+    database.init_app(app)
+    migrate.init_app(app)
+    cli.init_app(app)
+    router.init_app(app)
 
     return app

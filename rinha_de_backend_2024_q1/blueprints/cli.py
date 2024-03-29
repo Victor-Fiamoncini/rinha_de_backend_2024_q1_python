@@ -12,15 +12,11 @@ def create_database():
 
 
 @bp.cli.command("create-clients")
-def create_clients():
-    for limit, initial_balance in [
-        (100000, 0),
-        (80000, 0),
-        (1000000, 0),
-        (10000000, 0),
-        (500000, 0),
-    ]:
-        client = Client(limit=limit, balance=initial_balance)
+def create_initial_clients():
+    initial_limits = [100000, 80000, 1000000, 10000000, 500000]
+
+    for limit in initial_limits:
+        client = Client(limit_of=limit, balance=0)
         db.session.add(client)
 
     db.session.commit()
