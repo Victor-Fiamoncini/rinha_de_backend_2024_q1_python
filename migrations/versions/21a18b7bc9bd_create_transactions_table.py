@@ -23,7 +23,7 @@ def upgrade():
         "transactions",
         sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
         sa.Column("value", sa.Integer(), nullable=False),
-        sa.Column("type", sa.Enum("c", "d", name="transactiontype"), nullable=False),
+        sa.Column("type_of", sa.Enum("c", "d", name="transactiontype"), nullable=False),
         sa.Column("description", sa.String(), nullable=False),
         sa.Column("client_id", sa.Integer(), nullable=False),
         sa.Column(

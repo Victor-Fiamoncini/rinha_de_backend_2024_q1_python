@@ -22,7 +22,7 @@ def upgrade():
     op.create_table(
         "clients",
         sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
-        sa.Column("limit", sa.Integer(), nullable=False),
+        sa.Column("limit_of", sa.Integer(), nullable=False),
         sa.Column("balance", sa.Integer(), nullable=False),
         sa.Column(
             "created_at",
