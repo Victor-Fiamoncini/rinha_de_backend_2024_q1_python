@@ -1,7 +1,7 @@
 from datetime import datetime
 from enum import StrEnum
 from typing import List
-from rinha_de_backend_2024_q1.extensions.database import Base
+from rinha_de_backend_2024_q1.main.extensions.database import Base
 from sqlalchemy import DateTime, Enum, ForeignKey, Integer, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 

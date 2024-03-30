@@ -1,6 +1,6 @@
 from flask import Blueprint, Flask
-from rinha_de_backend_2024_q1.extensions.database import db
-from rinha_de_backend_2024_q1.models import Client
+from rinha_de_backend_2024_q1.infra.database.models import Client
+from rinha_de_backend_2024_q1.main.extensions.database import db
 
 
 bp = Blueprint("cli", __name__)

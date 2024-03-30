@@ -1,8 +1,8 @@
 from flask import Flask
 from pytest import fixture
-from rinha_de_backend_2024_q1.app import create_app
-from rinha_de_backend_2024_q1.extensions.database import db
-from rinha_de_backend_2024_q1.models import Client
+from rinha_de_backend_2024_q1.infra.database.models import Client
+from rinha_de_backend_2024_q1.main.app import create_app
+from rinha_de_backend_2024_q1.main.extensions.database import db
 from typing import Generator
 
 
