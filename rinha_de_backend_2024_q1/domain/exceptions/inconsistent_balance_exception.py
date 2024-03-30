@@ -1,0 +1,2 @@
+class InconsistentBalanceException(Exception):
+    pass
