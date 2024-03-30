@@ -1,9 +1,5 @@
 from dataclasses import dataclass
 
-from rinha_de_backend_2024_q1.domain.entities.transaction_entity import (
-    TransactionEntity,
-)
-
 
 @dataclass(frozen=True)
 class MakeNewInput:
@@ -22,5 +18,13 @@ class ClientEntity:
     def make_new(input: MakeNewInput) -> "ClientEntity":
         return ClientEntity(input.id, input.limit, input.balance)
 
-    def update_balance_by_new_transaction(self, transaction: TransactionEntity):
-        self.balance = self.balance - transaction.value
+    def update_balance_by_new_transaction(self, transaction: "TransactionEntity"):
+        if transaction.type_of == "c":
+            self.balance = self.balance + transaction.value
+        elif transaction.type_of == "d":
+            self.balance = self.balance - transaction.value
+
+
+from rinha_de_backend_2024_q1.domain.entities.transaction_entity import (
+    TransactionEntity,
+)

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Input:
-    client_id: int
+    client_id: str
     value: int
     description: str
     type_of: str
