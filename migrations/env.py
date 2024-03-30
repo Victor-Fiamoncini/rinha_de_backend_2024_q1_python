@@ -33,7 +33,7 @@ def get_engine_url():
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-import rinha_de_backend_2024_q1.models
+import rinha_de_backend_2024_q1.infra.database.models
 
 # target_metadata = mymodel.Base.metadata
 config.set_main_option("sqlalchemy.url", get_engine_url())
