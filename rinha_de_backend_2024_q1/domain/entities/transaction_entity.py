@@ -31,8 +31,10 @@ class TransactionEntity:
         if input.type_of == "d":
             new_balance = input.owner.balance - input.value
 
-            if abs(new_balance) > input.owner.limit:
-                raise InconsistentBalanceException()
+            if new_balance < (input.owner.limit * -1):
+                raise InconsistentBalanceException(
+                    "The amount debited will exceed the client's limit"
+                )
 
         return TransactionEntity(
             value=input.value,
