@@ -1,2 +1,0 @@
-class ClientNotFoundException(Exception):
-    pass

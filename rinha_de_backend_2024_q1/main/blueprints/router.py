@@ -1,14 +1,10 @@
 from flask import Blueprint, Flask, jsonify, request
-from rinha_de_backend_2024_q1.app.exceptions.invalid_input_exception import (
+from rinha_de_backend_2024_q1.app.exceptions import (
     InvalidInputException,
-)
-from rinha_de_backend_2024_q1.app.exceptions.required_param_exception import (
     RequiredInputException,
 )
-from rinha_de_backend_2024_q1.domain.exceptions.client_not_found_exception import (
+from rinha_de_backend_2024_q1.domain.exceptions import (
     ClientNotFoundException,
-)
-from rinha_de_backend_2024_q1.domain.exceptions.inconsistent_balance_exception import (
     InconsistentBalanceException,
 )
 from rinha_de_backend_2024_q1.domain.usecases.create_transaction_usecase import Input

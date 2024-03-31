@@ -1,2 +1,0 @@
-class RequiredInputException(Exception):
-    pass

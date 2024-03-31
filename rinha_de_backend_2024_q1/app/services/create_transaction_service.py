@@ -1,7 +1,5 @@
-from rinha_de_backend_2024_q1.app.exceptions.invalid_input_exception import (
+from rinha_de_backend_2024_q1.app.exceptions import (
     InvalidInputException,
-)
-from rinha_de_backend_2024_q1.app.exceptions.required_param_exception import (
     RequiredInputException,
 )
 from rinha_de_backend_2024_q1.app.repositories.create_transaction_repository import (
@@ -17,9 +15,7 @@ from rinha_de_backend_2024_q1.domain.entities.transaction_entity import (
     MakeNewInput,
     TransactionEntity,
 )
-from rinha_de_backend_2024_q1.domain.exceptions.client_not_found_exception import (
-    ClientNotFoundException,
-)
+from rinha_de_backend_2024_q1.domain.exceptions import ClientNotFoundException
 from rinha_de_backend_2024_q1.domain.usecases.create_transaction_usecase import (
     CreateTransactionUseCase,
     Input,

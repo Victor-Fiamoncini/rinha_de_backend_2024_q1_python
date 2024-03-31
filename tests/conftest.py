@@ -16,7 +16,7 @@ def create_initial_clients():
     db.session.commit()
 
 
-@fixture()
+@fixture
 def app() -> Generator:
     app = create_app("testing")
 
@@ -29,7 +29,7 @@ def app() -> Generator:
         db.drop_all()
 
 
-@fixture()
+@fixture
 def client(app: Flask) -> Generator:
     with app.test_client() as client:
         yield client

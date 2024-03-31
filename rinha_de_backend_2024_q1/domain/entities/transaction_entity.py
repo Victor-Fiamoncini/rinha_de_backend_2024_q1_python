@@ -1,8 +1,5 @@
 from dataclasses import dataclass
-
-from rinha_de_backend_2024_q1.domain.exceptions.inconsistent_balance_exception import (
-    InconsistentBalanceException,
-)
+from rinha_de_backend_2024_q1.domain.exceptions import InconsistentBalanceException
 
 
 @dataclass(frozen=True)
