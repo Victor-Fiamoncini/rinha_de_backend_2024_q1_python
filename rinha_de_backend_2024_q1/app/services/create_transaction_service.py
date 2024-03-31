@@ -17,6 +17,9 @@ from rinha_de_backend_2024_q1.domain.entities.transaction_entity import (
     MakeNewInput,
     TransactionEntity,
 )
+from rinha_de_backend_2024_q1.domain.exceptions.client_not_found_exception import (
+    ClientNotFoundException,
+)
 from rinha_de_backend_2024_q1.domain.usecases.create_transaction_usecase import (
     CreateTransactionUseCase,
     Input,
@@ -64,6 +67,9 @@ class CreateTransactionService(CreateTransactionUseCase):
         client = self._get_client_by_id_repository.get_client_by_id(
             int(input.client_id)
         )
+
+        if not client:
+            raise ClientNotFoundException("Client not found")
 
         transaction = TransactionEntity.make_new(
             MakeNewInput(
