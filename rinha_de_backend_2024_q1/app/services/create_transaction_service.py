@@ -1,6 +1,9 @@
 from rinha_de_backend_2024_q1.app.exceptions.invalid_input_exception import (
     InvalidInputException,
 )
+from rinha_de_backend_2024_q1.app.exceptions.required_param_exception import (
+    RequiredInputException,
+)
 from rinha_de_backend_2024_q1.app.repositories.create_transaction_repository import (
     CreateTransactionRepository,
 )
@@ -36,24 +39,24 @@ class CreateTransactionService(CreateTransactionUseCase):
 
     def _validate_input(self, input: Input):
         if not isinstance(input.value, int):
-            raise InvalidInputException("Invalid value")
+            raise RequiredInputException("Value is required")
 
         if input.value <= 0:
-            raise InvalidInputException("Invalid value")
+            raise InvalidInputException("Value is invalid")
 
         if input.type_of not in ["c", "d"]:
-            raise InvalidInputException("Invalid transaction type")
+            raise InvalidInputException("Transaction type is invalid")
 
         if not isinstance(input.description, str):
-            raise InvalidInputException("Invalid description")
+            raise RequiredInputException("Description is required")
 
         if len(input.description) < 1 or len(input.description) > 10:
-            raise InvalidInputException("Invalid description")
+            raise InvalidInputException("Description is invalid")
 
         try:
             int(input.client_id)
         except:
-            raise InvalidInputException("Invalid client id provided")
+            raise InvalidInputException("Client-id is invalid")
 
     def create_transaction(self, input: Input) -> Output:
         self._validate_input(input)
