@@ -4,17 +4,17 @@ from rinha_de_backend_2024_q1.app.services.create_transaction_service import (
 from rinha_de_backend_2024_q1.domain.usecases.create_transaction_usecase import (
     CreateTransactionUseCase,
 )
-from rinha_de_backend_2024_q1.infra.repositories.memory_client_repository import (
-    MemoryClientRepository,
+from rinha_de_backend_2024_q1.infra.repositories.sql_client_repository import (
+    SqlClientRepository,
 )
-from rinha_de_backend_2024_q1.infra.repositories.memory_transaction_repository import (
-    MemoryTransactionRepository,
+from rinha_de_backend_2024_q1.infra.repositories.sql_transaction_respository import (
+    SqlTransactionRepository,
 )
 
 
 def make_create_transaction_usecase() -> CreateTransactionUseCase:
-    client_repository = MemoryClientRepository()
-    transaction_repository = MemoryTransactionRepository()
+    client_repository = SqlClientRepository()
+    transaction_repository = SqlTransactionRepository()
 
     return CreateTransactionService(
         get_client_by_id_repository=client_repository,
