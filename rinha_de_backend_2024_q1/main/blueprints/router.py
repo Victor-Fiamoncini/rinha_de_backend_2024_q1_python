@@ -1,4 +1,5 @@
 from flask import Blueprint, Flask, jsonify, request
+from logging import getLogger
 from rinha_de_backend_2024_q1.app.exceptions import (
     InvalidInputException,
     RequiredInputException,
@@ -7,14 +8,15 @@ from rinha_de_backend_2024_q1.domain.exceptions import (
     ClientNotFoundException,
     InconsistentBalanceException,
 )
-from rinha_de_backend_2024_q1.domain.usecases.create_transaction_usecase import Input
+from rinha_de_backend_2024_q1.domain.usecases.create_transaction_usecase import (
+    Input as CreateTransactionInput,
+)
 from rinha_de_backend_2024_q1.main.factories.make_create_transaction_usecase import (
     make_create_transaction_usecase,
 )
 
 bp = Blueprint("router", __name__)
-
-create_transaction_usecase = make_create_transaction_usecase()
+logger = getLogger("router_blueprint_logger")
 
 
 @bp.get("/health")
@@ -32,10 +34,12 @@ def create_client_transaction(id: str):
     type_of = request.json.get("tipo")
 
     try:
-        input = Input(
-            client_id=id, value=value, description=description, type_of=type_of
+        create_transaction_usecase = make_create_transaction_usecase()
+        output = create_transaction_usecase.create_transaction(
+            CreateTransactionInput(
+                client_id=id, value=value, description=description, type_of=type_of
+            )
         )
-        output = create_transaction_usecase.create_transaction(input)
 
         return jsonify({"limite": output.limit, "saldo": output.balance}), 200
     except ClientNotFoundException as e:
@@ -44,6 +48,10 @@ def create_client_transaction(id: str):
         return jsonify({"message": str(e)}), 422
     except RequiredInputException as e:
         return jsonify({"message": str(e)}), 400
+    except Exception as e:
+        logger.error(str(e))
+
+        return jsonify({"message": "Internal error"}), 500
 
 
 def init_app(app: Flask):
