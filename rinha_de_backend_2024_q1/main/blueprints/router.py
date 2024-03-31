@@ -2,6 +2,12 @@ from flask import Blueprint, Flask, jsonify, request
 from rinha_de_backend_2024_q1.app.exceptions.invalid_input_exception import (
     InvalidInputException,
 )
+from rinha_de_backend_2024_q1.app.exceptions.required_param_exception import (
+    RequiredInputException,
+)
+from rinha_de_backend_2024_q1.domain.exceptions.client_not_found_exception import (
+    ClientNotFoundException,
+)
 from rinha_de_backend_2024_q1.domain.exceptions.inconsistent_balance_exception import (
     InconsistentBalanceException,
 )
@@ -36,9 +42,11 @@ def create_client_transaction(id: str):
         output = create_transaction_usecase.create_transaction(input)
 
         return jsonify({"limite": output.limit, "saldo": output.balance}), 200
-    except InconsistentBalanceException as e:
+    except ClientNotFoundException as e:
+        return jsonify({"message": str(e)}), 404
+    except (InconsistentBalanceException, InvalidInputException) as e:
         return jsonify({"message": str(e)}), 422
-    except InvalidInputException as e:
+    except RequiredInputException as e:
         return jsonify({"message": str(e)}), 400
 
 
