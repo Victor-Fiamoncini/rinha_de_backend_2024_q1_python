@@ -1,0 +1,2 @@
+class ClientNotFoundException(Exception):
+    pass
