@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Optional
+
 from rinha_de_backend_2024_q1.domain.exceptions import InconsistentBalanceException
 
 
@@ -21,11 +23,11 @@ class GetWithoutOwnerInput:
 
 class TransactionEntity:
     def __init__(self):
-        self.created_at = None
-        self.description = None
-        self.owner = None
-        self.type_of = None
-        self.value = None
+        self.created_at: Optional[datetime] = None
+        self.description: Optional[str] = None
+        self.owner: Optional["ClientEntity"] = None
+        self.type_of: Optional[str] = None
+        self.value: Optional[int] = None
 
     @staticmethod
     def make_new(input: MakeNewInput) -> "TransactionEntity":
