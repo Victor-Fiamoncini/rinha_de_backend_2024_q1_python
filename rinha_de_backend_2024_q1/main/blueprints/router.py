@@ -1,5 +1,6 @@
 from flask import Blueprint, Flask, jsonify, request
 from logging import getLogger
+
 from rinha_de_backend_2024_q1.app.exceptions import (
     InvalidInputException,
     RequiredInputException,
@@ -13,6 +14,9 @@ from rinha_de_backend_2024_q1.domain.usecases.create_transaction_usecase import 
 )
 from rinha_de_backend_2024_q1.main.factories.make_create_transaction_usecase import (
     make_create_transaction_usecase,
+)
+from rinha_de_backend_2024_q1.main.factories.make_generate_extract_usecase import (
+    make_generate_extract_usecase,
 )
 
 bp = Blueprint("router", __name__)
@@ -33,8 +37,9 @@ def create_client_transaction(id: str):
     description = request.json.get("descricao")
     type_of = request.json.get("tipo")
 
+    create_transaction_usecase = make_create_transaction_usecase()
+
     try:
-        create_transaction_usecase = make_create_transaction_usecase()
         output = create_transaction_usecase.create_transaction(
             CreateTransactionInput(
                 client_id=id, value=value, description=description, type_of=type_of
@@ -48,6 +53,45 @@ def create_client_transaction(id: str):
         return jsonify({"message": str(e)}), 422
     except RequiredInputException as e:
         return jsonify({"message": str(e)}), 400
+    except Exception as e:
+        logger.error(str(e))
+
+        return jsonify({"message": "Internal error"}), 500
+
+
+@bp.get("/clientes/<id>/extrato")
+def generate_client_extract(id: str):
+    generate_extract_usecase = make_generate_extract_usecase()
+
+    try:
+        output = generate_extract_usecase.generate_extract(id)
+
+        formatted_output = {
+            "saldo": {
+                "total": output.balance,
+                "data_extrato": output.created_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
+                "limite": output.limit_of,
+            },
+            "ultimas_transacoes": [
+                {
+                    "valor": transaction.value,
+                    "tipo": transaction.type_of,
+                    "descricao": transaction.description,
+                    "realizada_em": (
+                        transaction.created_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+                        if transaction.created_at
+                        else None
+                    ),
+                }
+                for transaction in output.transactions
+            ],
+        }
+
+        return jsonify(formatted_output), 200
+    except ClientNotFoundException as e:
+        return jsonify({"message": str(e)}), 404
+    except InvalidInputException as e:
+        return jsonify({"message": str(e)}), 422
     except Exception as e:
         logger.error(str(e))
 
