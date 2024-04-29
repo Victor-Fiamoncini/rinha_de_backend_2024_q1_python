@@ -1,3 +1,5 @@
+from typing import Union
+
 from rinha_de_backend_2024_q1.app.repositories.get_client_by_id_repository import (
     GetClientByIdRepository,
 )
@@ -13,7 +15,7 @@ from rinha_de_backend_2024_q1.main.extensions.database import db
 
 
 class SqlClientRepository(GetClientByIdRepository, UpdateClientRepository):
-    def get_client_by_id(self, client_id: int) -> ClientEntity:
+    def get_client_by_id(self, client_id: int) -> Union[ClientEntity, None]:
         row = (
             db.session.query(Client.id, Client.limit_of, Client.balance)
             .filter_by(id=client_id)
@@ -21,7 +23,7 @@ class SqlClientRepository(GetClientByIdRepository, UpdateClientRepository):
         )
 
         if not row:
-            raise Exception("Client not found")
+            return None
 
         return ClientEntity.make_new(
             MakeNewInput(id=row.id, limit=row.limit_of, balance=row.balance)
