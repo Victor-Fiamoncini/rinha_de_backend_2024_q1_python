@@ -1,4 +1,5 @@
 from typing import List
+
 from rinha_de_backend_2024_q1.app.repositories.create_transaction_repository import (
     CreateTransactionRepository,
 )
