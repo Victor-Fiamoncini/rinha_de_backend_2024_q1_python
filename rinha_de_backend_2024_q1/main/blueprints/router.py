@@ -1,5 +1,4 @@
 from flask import Blueprint, Flask, jsonify, request
-from logging import getLogger
 
 from rinha_de_backend_2024_q1.app.exceptions import (
     InvalidInputException,
@@ -20,7 +19,6 @@ from rinha_de_backend_2024_q1.main.factories.make_generate_extract_usecase impor
 )
 
 bp = Blueprint("router", __name__)
-logger = getLogger("router_blueprint_logger")
 
 
 @bp.get("/health")
@@ -53,10 +51,6 @@ def create_client_transaction(id: str):
         return jsonify({"message": str(e)}), 422
     except RequiredInputException as e:
         return jsonify({"message": str(e)}), 400
-    except Exception as e:
-        logger.error(str(e))
-
-        return jsonify({"message": "Internal error"}), 500
 
 
 @bp.get("/clientes/<id>/extrato")
@@ -92,10 +86,6 @@ def generate_client_extract(id: str):
         return jsonify({"message": str(e)}), 404
     except InvalidInputException as e:
         return jsonify({"message": str(e)}), 422
-    except Exception as e:
-        logger.error(str(e))
-
-        return jsonify({"message": "Internal error"}), 500
 
 
 def init_app(app: Flask):
