@@ -11,6 +11,7 @@ from rinha_de_backend_2024_q1.app.repositories.get_client_by_id_repository impor
 from rinha_de_backend_2024_q1.app.repositories.update_client_repository import (
     UpdateClientRepository,
 )
+from rinha_de_backend_2024_q1.app.unit_of_work import UnitOfWork
 from rinha_de_backend_2024_q1.domain.entities.transaction_entity import (
     MakeNewInput,
     TransactionEntity,
@@ -26,12 +27,14 @@ from rinha_de_backend_2024_q1.domain.usecases.create_transaction_usecase import 
 class CreateTransactionService(CreateTransactionUseCase):
     def __init__(
         self,
+        unit_of_work: UnitOfWork,
         get_client_by_id_repository: GetClientByIdRepository,
         create_transaction_repository: CreateTransactionRepository,
         update_client_repository: UpdateClientRepository,
     ):
         super().__init__()
 
+        self._unit_of_work = unit_of_work
         self._get_client_by_id_repository = get_client_by_id_repository
         self._create_transaction_repository = create_transaction_repository
         self._update_client_repository = update_client_repository
@@ -78,7 +81,8 @@ class CreateTransactionService(CreateTransactionUseCase):
 
         client.update_balance_by_new_transaction(transaction)
 
-        self._create_transaction_repository.create_transaction(transaction)
-        self._update_client_repository.update_client(client)
+        with self._unit_of_work:
+            self._create_transaction_repository.create_transaction(transaction)
+            self._update_client_repository.update_client(client)
 
         return Output(limit=client.limit, balance=client.balance)
