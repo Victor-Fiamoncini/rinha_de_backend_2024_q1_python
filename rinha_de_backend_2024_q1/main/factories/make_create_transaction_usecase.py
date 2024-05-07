@@ -1,4 +1,3 @@
-from rinha_de_backend_2024_q1.app import unit_of_work
 from rinha_de_backend_2024_q1.app.services.create_transaction_service import (
     CreateTransactionService,
 )

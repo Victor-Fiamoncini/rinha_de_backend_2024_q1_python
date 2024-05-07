@@ -19,6 +19,9 @@ class ClientEntity:
         return ClientEntity(input.id, input.limit, input.balance)
 
     def update_balance_by_new_transaction(self, transaction: "TransactionEntity"):
+        if not transaction.value:
+            return
+
         if transaction.type_of == "c":
             self.balance = self.balance + transaction.value
         elif transaction.type_of == "d":

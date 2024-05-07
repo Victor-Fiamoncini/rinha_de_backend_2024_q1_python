@@ -1,4 +1,5 @@
 from typing import List
+
 from rinha_de_backend_2024_q1.app.repositories.create_transaction_repository import (
     CreateTransactionRepository,
 )
@@ -16,6 +17,9 @@ class MemoryTransactionRepository(
     _transactions = []
 
     def create_transaction(self, transaction: TransactionEntity):
+        if not transaction.owner:
+            raise Exception("Transaction owner not provided")
+
         self._transactions.append(
             {
                 "value": transaction.value,

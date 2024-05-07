@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from rinha_de_backend_2024_q1.domain.entities.client_entity import ClientEntity
 from rinha_de_backend_2024_q1.domain.entities.transaction_entity import (
     TransactionEntity,
