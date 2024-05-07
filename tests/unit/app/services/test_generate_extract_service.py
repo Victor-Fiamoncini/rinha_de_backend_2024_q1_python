@@ -1,10 +1,9 @@
 from datetime import datetime
 from freezegun import freeze_time
+from pytest import raises
 from unittest.mock import Mock
 
-from pytest import raises
 from rinha_de_backend_2024_q1.app.exceptions import InvalidInputException
-
 from rinha_de_backend_2024_q1.app.repositories.get_client_by_id_repository import (
     GetClientByIdRepository,
 )
