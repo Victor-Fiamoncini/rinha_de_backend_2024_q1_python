@@ -1,5 +1,5 @@
 from pytest import raises
-from unittest.mock import Mock
+from unittest.mock import MagicMock, Mock
 
 from rinha_de_backend_2024_q1.app.exceptions import (
     InvalidInputException,
@@ -17,6 +17,7 @@ from rinha_de_backend_2024_q1.app.repositories.update_client_repository import (
 from rinha_de_backend_2024_q1.app.services.create_transaction_service import (
     CreateTransactionService,
 )
+from rinha_de_backend_2024_q1.app.unit_of_work import UnitOfWork
 from rinha_de_backend_2024_q1.domain.entities.client_entity import (
     ClientEntity,
     MakeNewInput as MakeNewClientEntityInput,
@@ -29,11 +30,13 @@ from rinha_de_backend_2024_q1.domain.usecases.create_transaction_usecase import 
 
 
 def make_create_transaction_service():
+    unit_of_work_mock = MagicMock(spec=UnitOfWork)
     get_client_by_id_repository_mock = Mock(spec=GetClientByIdRepository)
     create_transaction_repository_mock = Mock(spec=CreateTransactionRepository)
     update_client_repository_mock = Mock(spec=UpdateClientRepository)
 
     sut = CreateTransactionService(
+        unit_of_work=unit_of_work_mock,
         get_client_by_id_repository=get_client_by_id_repository_mock,
         create_transaction_repository=create_transaction_repository_mock,
         update_client_repository=update_client_repository_mock,
