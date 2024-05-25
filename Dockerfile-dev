@@ -13,7 +13,6 @@ WORKDIR /home/python/app_dev
 COPY . .
 
 # Installs dependencies
-RUN pip install -r requirements.txt
-RUN pip install -r requirements_dev.txt
+RUN pip install --no-cache-dir -r requirements.txt -r requirements_dev.txt
 
-CMD ./run_dev_server.sh
+CMD ["sh", "run_dev_server.sh"]
