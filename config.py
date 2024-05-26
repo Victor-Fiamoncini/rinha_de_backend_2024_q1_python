@@ -3,12 +3,12 @@ import os
 
 class Config(object):
     DEBUG = False
-    FLASK_RUN_PORT = 5000
+    PORT = 5000
     TESTING = False
-    SQLALCHEMY_POOL_TIMEOUT = 30  # 30s
 
 
 class ProductionConfig(Config):
+    PORT = 8080
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
 
 
