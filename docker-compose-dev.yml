@@ -7,11 +7,9 @@ services:
       context: .
       dockerfile: Dockerfile-dev
     environment:
-      FLASK_APP: rinha_de_backend_2024_q1/main/app:create_app('development')
+      - FLASK_APP=rinha_de_backend_2024_q1/main/app:create_app('development')
     ports:
       - 5000:5000
-    volumes:
-      - .:/home/python/app_dev
     depends_on:
       - postgres_dev
       - postgres_test
@@ -22,9 +20,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: superuser
-      POSTGRES_PASSWORD: superpassword
-      POSTGRES_DB: rinha_de_backend_dev
+      - POSTGRES_USER=superuser
+      - POSTGRES_PASSWORD=superpassword
+      - POSTGRES_DB=rinha_de_backend_dev
 
   postgres_test:
     container_name: postgres_test
@@ -32,9 +30,9 @@ services:
     ports:
       - 5433:5432
     environment:
-      POSTGRES_USER: superuser
-      POSTGRES_PASSWORD: superpassword
-      POSTGRES_DB: rinha_de_backend_test
+      - POSTGRES_USER=superuser
+      - POSTGRES_PASSWORD=superpassword
+      - POSTGRES_DB=rinha_de_backend_test
 
 networks:
   default:
