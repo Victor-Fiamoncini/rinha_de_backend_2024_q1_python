@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 python -m flask cli create-database
 
