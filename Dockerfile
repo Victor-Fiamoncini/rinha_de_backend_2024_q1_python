@@ -5,15 +5,24 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y gcc g++ libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Creates and uses a "python" sys user
+# Creates and uses a "python" user
 RUN useradd -ms /bin/bash python
+
+# Switches to the new user and set the home directory as the working directory
+WORKDIR /home/python
+COPY --chown=python:python . .
+
+# Switches to the new user for installing python packages
 USER python
 
-WORKDIR /home/python/app_dev
-COPY . .
-
 # Installs dependencies
-RUN pip install -r requirements.txt
-RUN pip install -r requirements_dev.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ./run_dev_server.sh
+# Checks that uwsgi is installed and available in the PATH
+RUN /home/python/.local/bin/uwsgi --version
+
+# Sets PATH environment variable
+ENV PATH="/home/python/.local/bin:$PATH"
+
+# Runs the WSGI server as the "python" user
+CMD ["sh", "run_prod_server.sh"]
