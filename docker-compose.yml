@@ -12,6 +12,11 @@ services:
       - 8081:3000
     depends_on:
       - db
+    deploy:
+      resources:
+        limits:
+          cpus: "0.43"
+          memory: "200MB"
 
   api02:
     <<: *api
@@ -29,6 +34,11 @@ services:
       - api01
     ports:
       - 9999:9999
+    deploy:
+      resources:
+        limits:
+          cpus: "0.17"
+          memory: "10MB"
 
   db:
     container_name: db
@@ -40,6 +50,11 @@ services:
       - POSTGRES_USER=superuser
       - POSTGRES_PASSWORD=superpassword
       - POSTGRES_DB=rinha_de_backend
+    deploy:
+      resources:
+        limits:
+          cpus: "0.47"
+          memory: "140MB"
 
 networks:
   default:
