@@ -4,6 +4,8 @@ Minha versão em Python com o framework Flask para a rinha de backend. Feita usa
 
 Desafio para a Rinha de Backend - 2024 Q1 (Feita depois da competição ter acabado).
 
+[Link da rinha 2024 q1](https://github.com/zanfranceschi/rinha-de-backend-2024-q1)
+
 Principais ferramentas usadas:
 
 - Python v3.11.6;
